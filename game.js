@@ -209,9 +209,9 @@ Cell.prototype.plumb = function(){
 Cell.prototype.fill = function() {
 	if (this.filled) return 0;
 	this.filled = true;
+	this.render();
 	var fill_nums = this.connected_neighbors().map(function(cell){
 		var result = cell.fill();
-		cell.render();
 		return result;
 	});
 	return fill_nums.reduce(function(a,b){return a+b}, 1);
@@ -257,23 +257,24 @@ CellView.prototype.rotate = function(angle){
 }
 
 
-function Board(){
+function Board(size){
+	this.size = size;
 	var cells = this.cells = [];
 
-	for (var column = 0; column < 9; column++){
+	for (var column = 0; column < size; column++){
 		cells[column] = [];
 	}
 
-	for (var y = 0; y < 9; y++){
-		for (var x = 0; x < 9; x++){
+	for (var y = 0; y < size; y++){
+		for (var x = 0; x < size; x++){
 			cells[x][y] = new Cell(x, y, this);
 		}
 	}
 
-	cells[4][4].plumbed = true;
-	cells[4][4].render();
+	this.center().plumbed = true;
+	this.center().render();
 
-	var unplumbed_cells = [cells[3][4], cells[5][4], cells[4][3], cells[4][5]];
+	var unplumbed_cells = this.center().neighbors();
 
 	while (unplumbed_cells.length){
 		var index = unplumbed_cells.random_index();
@@ -295,33 +296,41 @@ function Board(){
 	}
 
 
-	for (var y = 0; y < 9; y++){
-		for (var x = 0; x < 9; x++){
+	for (var y = 0; y < size; y++){
+		for (var x = 0; x < size; x++){
 			var num_rotations = [0,1,2,3].random();
 			for (var i = 0; i < num_rotations; i++)
 				cells[x][y].rotate();
 		}
 	}
 
-	cells[4][4].fill();
+	this.center().fill();
 
 }
 
 Board.prototype.refill = function() {
-	for(var y = 0; y <9; y++){
-		for(var x=0; x<9; x++){
+	for(var y = 0; y <this.size; y++){
+		for(var x=0; x<this.size; x++){
 			this.cells[x][y].filled = false;
 			this.cells[x][y].render();
 		}
 	}
-	if (this.cells[4][4].fill() === 81)
+	if (this.center().fill() === this.area())
 		victory();
 };
 
+Board.prototype.center = function() {
+	var center = (this.cells.length - 1) / 2;
+	return this.cells[center][center];
+};
+
+Board.prototype.area = function() {
+	return this.cells.length * this.cells.length;
+};
 
 
 function victory(){
 	alert('you win!');
 }
 
-board = new Board();
+board = new Board(11);
