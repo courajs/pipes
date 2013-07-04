@@ -254,6 +254,7 @@ CellView.prototype.rotate = function(angle){
 	this.angle = angle;
 	var transform = 'rotate(' + this.angle + 'deg)'
 	this.el.style.webkitTransform = transform;
+	this.el.style.transform = transform;
 }
 
 
