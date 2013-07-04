@@ -331,6 +331,7 @@ Board.prototype.area = function() {
 
 function victory(){
 	alert('you win!');
+	location.reload();
 }
 
-board = new Board(11);
+board = new Board(9);
