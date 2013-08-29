@@ -5,12 +5,17 @@
 	box-sizing: border-box;
 }
 
+body {
+	background-color: #ece9e2;
+}
+
 div#game {
 	position: relative;
 	height: 456px;
 	width: 456px;
 
-	margin: 20px;
+	left: 0; right: 0;
+	margin: 50px auto;
 
 	border-width: 3px;
 	border-style: solid;
@@ -33,4 +38,9 @@ div.cell {
 
 #game.hidden {
 	display: none;
+}
+
+.container {
+	width: 100%;
+	min-width: 456px;
 }
