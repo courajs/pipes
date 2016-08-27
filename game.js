@@ -318,7 +318,7 @@ Board.prototype.refill = function() {
 		}
 	}
 	if (this.center().fill() === this.area())
-		victory();
+		setTimeout(victory, 0);
 };
 
 Board.prototype.center = function() {
