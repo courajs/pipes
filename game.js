@@ -240,6 +240,13 @@ function CellView(cell){
 		return div;
 	}
 
+	function create_and_insert_rect(){
+    var box = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    box.className = 'cell';
+		var svg = document.getElementById('new-game');
+		game.appendChild(box);
+		return box;
+	}
 }
 
 CellView.prototype.set_inner_image = function(image_name){

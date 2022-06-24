@@ -9,6 +9,35 @@ body {
 	background-color: #ece9e2;
 }
 
+svg#new-game {
+  width: 456px;
+  height: 456px;
+
+  display: block;
+  left: 0; right: 0;
+  margin: 50px auto;
+
+  border: 3px solid #999;
+
+  /*background-color: #bbb;*/
+
+  box-sizing: content-box;
+}
+
+svg#new-game * {
+  /* shape-rendering: crisp-edges; */
+}
+
+svg rect.cell {
+  pointer-events: visible;
+  stroke: #bbb;
+  stroke-width: 1px;
+}
+
+svg rect.cell {
+  fill: blue;
+}
+
 div#game {
 	position: relative;
 	height: 456px;
